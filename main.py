@@ -69,6 +69,10 @@ def get_tokens(code):
         elif tokens[i][0][0] in '0123456789' and tokens[i- 1][0][0] in '0123456789':
             tokens.remove(tokens[i])
             i -= 1
+        elif tokens[i][0] == '=' and tokens[i-1][0] ==':':
+            tokens[i - 1][0] = ':='
+            tokens.remove(tokens[i])
+            i -= 1
         i+=1
     return tokens
 
