@@ -30,7 +30,7 @@ def get_tokens(code):
                'Close', 'Read', 'ReadLn', 'Write', 'WriteLn', ',', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'}
     for i in range(len(code)):
         print(cur_w)
-        if code[i] == ' ' or code[i] in special:
+        if code[i] == ' ' or (code[i] in special and code[i] not in '0123456789'):
             elem = code[i]
             if cur_w != '':
                 if cur_w in special:
@@ -46,12 +46,19 @@ def get_tokens(code):
                 i+=1
             tokens.append([elem, counter])
             cur_w = ''
-        elif cur_w in special:
+        elif code[i] in special and code[i] in '0123456789':
+            cur = code[i]
+            i +=1
+            while i < len(code) and code[i] in '0123456789':
+                cur += code[i]
+                i+=1
+            tokens.append([cur, 1])
+            '''elif cur_w in special:
             while (i < len(code) and code[i] in '0123456789'):
                 counter += 1
                 i+=1
             tokens.append([cur_w, 1])
-            cur_w = ''
+            cur_w = '''
         else:
             cur_w += code[i]
     i = 1
@@ -59,6 +66,9 @@ def get_tokens(code):
         if tokens[i][0] == tokens[i - 1][0]:
             tokens.remove(tokens[i])
             i-=1
+        elif tokens[i][0][0] in '0123456789' and tokens[i- 1][0][0] in '0123456789':
+            tokens.remove(tokens[i])
+            i -= 1
         i+=1
     return tokens
 
