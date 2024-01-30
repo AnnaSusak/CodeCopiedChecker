@@ -1,4 +1,4 @@
-var a: array[1..10004] of  integer;{ массив элементов }
+var a: array[1..10] of  integer;{ массив элементов }
     n:   integer;
 
 
