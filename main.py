@@ -49,6 +49,12 @@ def get_tokens(code):
         elif cur_w == 'write' and i < len(code) - 1 and code[i] == 'l':
             tokens.append(['writeln', 1])
             i+=2
+        elif cur_w == 'Read' and i < len(code) - 1 and code[i] == 'L':
+            tokens.append(['ReadLn', 1])
+            i+=2
+        elif cur_w == 'Write' and i < len(code) - 1 and code[i] == 'L':
+            tokens.append(['WriteLn', 1])
+            i+=2
         elif code[i] == ' ' or (code[i] in special and code[i] not in '0123456789'):
             elem = code[i]
             if cur_w != '':
