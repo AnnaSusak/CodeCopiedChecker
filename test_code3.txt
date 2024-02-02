@@ -4,25 +4,31 @@ var a:array[1..10] of integer;
 procedure QuickSort( L, R : Integer );
 var i,j,x,y : integer;
 begin
+
   i := l; j := r;
-  x := a[(l+r) div 2];
+  x :=  a[(l+r)  div 2];
   repeat
     while (A[i]<x) do inc(i);
-    while (x<A[j]) do dec(j);
-    if ( i<=j ) then
+    while (x < A[j]) do dec(j);
+    if ( i<=   j ) then
     begin
-      y:=A[i]; a[i]:=a[j]; a[j]:=y;
+      y:=A[i];                 a[i]:=a[j]; a[j]:=y;
       inc(i); dec(j);
     end;
+
   until (i>j);
   if (l<j) then QuickSort(l,j);
-  if (i<r) then QuickSort(i,r);
+
+  if (    i <   r) then QuickSort(i,r);
+
 end;
 
 begin
      writeln();
      for n:=1 to 10 do readln(a[n]);
+
      QuickSort( 1, 10 );
      writeln();
+
      for n:=1 to 10 do writeln(a[n]);
 end.

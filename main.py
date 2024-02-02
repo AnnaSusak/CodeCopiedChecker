@@ -43,6 +43,12 @@ def get_tokens(code):
             i+=1
             print ('string value', cur)
             tokens.append(['string value', 1])
+        elif cur_w == 'in' and i < len(code) - 1 and code[i] =='t':
+            tokens.append(['integer', 1])
+            i += 5
+        elif cur_w == 'write' and i < len(code) - 1 and code[i] == 'l':
+            tokens.append(['writeln', 1])
+            i+=2
         elif code[i] == ' ' or (code[i] in special and code[i] not in '0123456789'):
             elem = code[i]
             if cur_w != '':
@@ -106,7 +112,7 @@ def get_tokens(code):
 with open('test_code1.txt', 'r', encoding="utf-8") as file:
     code1 = file.read()
 # code1 = format_code((code1))
-with open('test_code2.txt', 'r', encoding="utf-8") as file:
+with open('test_code3.txt', 'r', encoding="utf-8") as file:
     code2 = file.read()
 #code2 = format_code(code2)
 # print(code1)
