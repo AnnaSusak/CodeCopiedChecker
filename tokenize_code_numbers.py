@@ -1,6 +1,8 @@
 COMMENT_NUM = 143
 STRING_VALUE_NUM = 144
 VARIABLE_NUM = 145
+NUMBER_NUM = 146
+SPACE_NUM = 147
 code_numbers = {
     '+': 1, '-': 2, '*': 3, '/': 4, ':': 5, '=': 6,
     '<': 7, '>': 8, '.': 9, '(': 10, ')': 11, '[': 12,
