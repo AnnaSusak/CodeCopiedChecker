@@ -102,13 +102,37 @@ def get_tokens(code):
     return tokens
 
 
-with open('test_code1.txt', 'r', encoding="utf-8") as file:
+def check_2_codes(full=True):
+    i = 0
+    j = 0
+    flag = False
+    while i < len(t1) and j < len(t2):
+        while i < len(t1) and (t1[i][0] == tokenize_code_numbers.COMMENT_NUM or t1[i][
+            0] == tokenize_code_numbers.SPACE_NUM or t1[i][
+                                   0] == tokenize_code_numbers.STRING_VALUE_NUM or t1[i][
+                                   0] == tokenize_code_numbers.NEXT_LINE_NUM):
+            i += 1
+        while j < len(t2) and (t2[j][0] == tokenize_code_numbers.COMMENT_NUM or t2[j][
+            0] == tokenize_code_numbers.SPACE_NUM or t2[j][
+                                   0] == tokenize_code_numbers.STRING_VALUE_NUM or t2[j][
+                                   0] == tokenize_code_numbers.NEXT_LINE_NUM):
+            j += 1
+        if i < len(t1) and j < len(t2) and (t1[i][0] != t2[j][0] or t1[i][2] != t2[j][2]):
+            if not full and t1[i][0] != t2[j][0] or full:
+                flag = True
+                break
+        i += 1
+        j += 1
+    return not flag
+
+
+with open('test_code3.txt', 'r', encoding="utf-8") as file:
     code1 = file.read()
-with open('test_code2.txt', 'r', encoding="utf-8") as file:
+with open('test_code1.txt', 'r', encoding="utf-8") as file:
     code2 = file.read()
 t1 = get_tokens(code1)
 t2 = get_tokens(code2)
-print('tokens')
+'''print('tokens')
 k = 0
 while k < min(len(t1), len(t2)):
     print(t2[k])
@@ -118,25 +142,17 @@ while k < max(len(t1), len(t2)):
         print(t1[k])
     else:
         print(t2[k])
-    k += 1
-i = 0
-j = 0
-flag = False
-while i < len(t1) and j < len(t2):
-    while i < len(t1) and (t1[i][0] == tokenize_code_numbers.COMMENT_NUM or t1[i][
-        0] == tokenize_code_numbers.SPACE_NUM or t1[i][
-        0] == tokenize_code_numbers.STRING_VALUE_NUM or t1[i][0] == tokenize_code_numbers.NEXT_LINE_NUM):
-        i += 1
-    while j < len(t2) and (t2[j][0] == tokenize_code_numbers.COMMENT_NUM or t2[j][
-        0] == tokenize_code_numbers.SPACE_NUM or t2[j][
-        0] == tokenize_code_numbers.STRING_VALUE_NUM or t2[j][0] == tokenize_code_numbers.NEXT_LINE_NUM):
-        j += 1
-    if i < len(t1) and j < len(t2) and (t1[i][0] != t2[j][0]):
-        flag = True
-        break
-    i += 1
-    j += 1
-if not flag:
+    k += 1'''
+
+if check_2_codes():
     print('100 %')
-'''if lev(code1, code2) == 0:
-    print('100%')'''
+elif check_2_codes(False):
+    print('second level')
+else:
+    dist1 = ''
+    dist2 = ''
+    for i in t1:
+        dist1 += str(i[0]) + ' '
+    for j in t2:
+        dist2 += str(j[0]) + ' '
+    print(lev(dist1, dist2))

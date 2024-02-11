@@ -1,5 +1,8 @@
+procedure QuickSort( L, R : Integer );
+var i,j,x,y : integer;
+
+
 var a:array[1100..1200] of integer;
     n:integer;
 
-procedure QuickSort( L, R : Integer );
-var i,j,x,y : integer;
+
