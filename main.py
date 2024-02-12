@@ -1,8 +1,9 @@
 from Levenshtein import distance as lev
-
+import os
 import tokenize_code_numbers
 
 special_words = tokenize_code_numbers.code_numbers
+RESUL_FILE_PATH = 'D:/ANNA/USB/CodeCopiedChecker/result.txt'
 
 
 def check_special_word(s):
@@ -52,12 +53,9 @@ def check_number(s):
         return False
     cur_var = ''
     l = 0
-    # print(s)
     while l < len(s) and s[l] in '1234567890':
-        # print(l, s[l], s[l] in '1234567890')
         cur_var += s[l]
         l += 1
-    # print('tok',[tokenize_code_numbers.NUMBER_NUM, len(cur_var), cur_var])
     return [tokenize_code_numbers.NUMBER_NUM, len(cur_var), cur_var]
 
 
@@ -126,33 +124,36 @@ def check_2_codes(full=True):
     return not flag
 
 
-with open('test_code3.txt', 'r', encoding="utf-8") as file:
-    code1 = file.read()
-with open('test_code1.txt', 'r', encoding="utf-8") as file:
-    code2 = file.read()
-t1 = get_tokens(code1)
-t2 = get_tokens(code2)
-'''print('tokens')
-k = 0
-while k < min(len(t1), len(t2)):
-    print(t2[k])
-    k += 1
-while k < max(len(t1), len(t2)):
-    if len(t1) > len(t2):
-        print(t1[k])
-    else:
-        print(t2[k])
-    k += 1'''
-
-if check_2_codes():
-    print('100 %')
-elif check_2_codes(False):
-    print('second level')
-else:
-    dist1 = ''
-    dist2 = ''
-    for i in t1:
-        dist1 += str(i[0]) + ' '
-    for j in t2:
-        dist2 += str(j[0]) + ' '
-    print(lev(dist1, dist2))
+directory = 'D:/ANNA/USB/CodeCopiedChecker/codes_test'
+files = []
+for filename in os.listdir(directory):
+    f = os.path.join(directory, filename)
+    if os.path.isfile(f):
+        files.append(f)
+if not os.path.exists(RESUL_FILE_PATH):
+    with open(RESUL_FILE_PATH, 'w'): pass
+res = ''
+for f1 in range(0, len(files) - 1):
+    for f2 in range(f1 + 1, len(files)):
+        with open(files[f1], 'r', encoding="utf-8") as file:
+            code1 = file.read()
+        with open(files[f2], 'r', encoding="utf-8") as file:
+            code2 = file.read()
+        t1 = get_tokens(code1)
+        t2 = get_tokens(code2)
+        res += files[f1] + ' ' + files[f2] + ' '
+        if check_2_codes():
+            res += '100 %'
+        elif check_2_codes(False):
+            res += 'second level'
+        else:
+            dist1 = ''
+            dist2 = ''
+            for i in t1:
+                dist1 += str(i[0]) + ' '
+            for j in t2:
+                dist2 += str(j[0]) + ' '
+            res += str(lev(dist1, dist2))
+        res += '\n'
+with open(RESUL_FILE_PATH, 'w', encoding="utf-8") as file:
+    file.write(res)
