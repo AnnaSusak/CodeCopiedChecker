@@ -1,3 +1,15 @@
-D:/ANNA/USB/CodeCopiedChecker/codes_test\test_code1.txt D:/ANNA/USB/CodeCopiedChecker/codes_test\test_code2.txt 77
-D:/ANNA/USB/CodeCopiedChecker/codes_test\test_code1.txt D:/ANNA/USB/CodeCopiedChecker/codes_test\test_code3.txt 77
-D:/ANNA/USB/CodeCopiedChecker/codes_test\test_code2.txt D:/ANNA/USB/CodeCopiedChecker/codes_test\test_code3.txt 100 %
+D:\ANNA\USB\CodeCopiedChecker\2-3.pas D:\ANNA\USB\CodeCopiedChecker\2-4.pas second level
+D:\ANNA\USB\CodeCopiedChecker\2-3.pas D:\ANNA\USB\CodeCopiedChecker\2-5.pas second level
+D:\ANNA\USB\CodeCopiedChecker\2-3.pas D:\ANNA\USB\CodeCopiedChecker\2-6.pas second level
+D:\ANNA\USB\CodeCopiedChecker\2-3.pas D:\ANNA\USB\CodeCopiedChecker\2-bad.pas second level
+D:\ANNA\USB\CodeCopiedChecker\2-3.pas D:\ANNA\USB\CodeCopiedChecker\2.pas 100 %
+D:\ANNA\USB\CodeCopiedChecker\2-4.pas D:\ANNA\USB\CodeCopiedChecker\2-5.pas second level
+D:\ANNA\USB\CodeCopiedChecker\2-4.pas D:\ANNA\USB\CodeCopiedChecker\2-6.pas second level
+D:\ANNA\USB\CodeCopiedChecker\2-4.pas D:\ANNA\USB\CodeCopiedChecker\2-bad.pas second level
+D:\ANNA\USB\CodeCopiedChecker\2-4.pas D:\ANNA\USB\CodeCopiedChecker\2.pas second level
+D:\ANNA\USB\CodeCopiedChecker\2-5.pas D:\ANNA\USB\CodeCopiedChecker\2-6.pas 100 %
+D:\ANNA\USB\CodeCopiedChecker\2-5.pas D:\ANNA\USB\CodeCopiedChecker\2-bad.pas second level
+D:\ANNA\USB\CodeCopiedChecker\2-5.pas D:\ANNA\USB\CodeCopiedChecker\2.pas second level
+D:\ANNA\USB\CodeCopiedChecker\2-6.pas D:\ANNA\USB\CodeCopiedChecker\2-bad.pas second level
+D:\ANNA\USB\CodeCopiedChecker\2-6.pas D:\ANNA\USB\CodeCopiedChecker\2.pas second level
+D:\ANNA\USB\CodeCopiedChecker\2-bad.pas D:\ANNA\USB\CodeCopiedChecker\2.pas second level

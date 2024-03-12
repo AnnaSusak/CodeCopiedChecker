@@ -16,7 +16,7 @@ code_numbers = {
     'packed': 51, 'until': 52, 'div': 53, 'if': 54, 'procedure': 55,
     'var': 56, 'do': 57,'integer': 73, 'in': 58, 'program': 59, 'while': 60, 'downto': 61,
     'label': 62, 'record': 63, 'with': 64, 'else': 65, 'mod': 66, 'repeat': 67,
-    'writeln': 68, 'maxlongint': 69, ';': 70, 'maxint': 71, 'read': 72,
+    'writeln': 68,  'Writeln': 150, 'maxlongint': 69, ';': 70, 'maxint': 71, 'read': 72,
     'real': 74, 'boolean': 75, 'char': 76, 'string': 77, 'Byte': 78, 'ShortInt': 79,
     'Word': 80, 'Comp': 81, 'Integer': 82, 'LongInt': 83, 'Real': 84, 'Single': 85,
     'Double': 87, 'Extended': 88, 'Boolean': 89, 'Char': 90, 'Array': 91, 'String': 92,

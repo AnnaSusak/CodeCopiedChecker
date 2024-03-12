@@ -3,8 +3,7 @@ import os
 import tokenize_code_numbers
 
 special_words = tokenize_code_numbers.code_numbers
-RESUL_FILE_PATH = 'D:/ANNA/USB/CodeCopiedChecker/result.txt'
-
+RESUL_FILE_PATH = os.path.dirname(os.path.realpath(__file__)) + '/result.txt'
 
 def check_special_word(s):
     for i in special_words.keys():
@@ -42,7 +41,7 @@ def check_comment(s):
 def check_string_value(s):
     if s[0] != '\'':
         return False
-    i = 0
+    i = 1
     while s[i] != '\'':
         i += 1
     return [tokenize_code_numbers.STRING_VALUE_NUM, 1, s[:i + 1]]
@@ -88,9 +87,9 @@ def get_tokens(code):
             if cur == False:
                 cur = check_new_string(code)
                 if cur == False:
-                    cur = check_special_word(code)
+                    cur = check_string_value(code)
                     if cur == False:
-                        cur = check_string_value(code)
+                        cur = check_special_word(code)
                         if cur == False:
                             cur = check_number(code)
                             if cur == False:
@@ -124,20 +123,20 @@ def check_2_codes(full=True):
     return not flag
 
 
-directory = 'D:/ANNA/USB/CodeCopiedChecker/codes_test'
+directory = os.path.dirname(os.path.realpath(__file__))
 files = []
 for filename in os.listdir(directory):
     f = os.path.join(directory, filename)
-    if os.path.isfile(f):
+    if os.path.isfile(f) and f.endswith('pas'):
         files.append(f)
 if not os.path.exists(RESUL_FILE_PATH):
     with open(RESUL_FILE_PATH, 'w'): pass
 res = ''
 for f1 in range(0, len(files) - 1):
     for f2 in range(f1 + 1, len(files)):
-        with open(files[f1], 'r', encoding="utf-8") as file:
+        with open(files[f1], 'r',  encoding='utf-8-sig') as file:
             code1 = file.read()
-        with open(files[f2], 'r', encoding="utf-8") as file:
+        with open(files[f2], 'r',  encoding='utf-8-sig') as file:
             code2 = file.read()
         t1 = get_tokens(code1)
         t2 = get_tokens(code2)
