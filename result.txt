@@ -1,15 +1,21 @@
 D:\ANNA\USB\CodeCopiedChecker\2-3.pas D:\ANNA\USB\CodeCopiedChecker\2-4.pas second level
 D:\ANNA\USB\CodeCopiedChecker\2-3.pas D:\ANNA\USB\CodeCopiedChecker\2-5.pas second level
 D:\ANNA\USB\CodeCopiedChecker\2-3.pas D:\ANNA\USB\CodeCopiedChecker\2-6.pas second level
+D:\ANNA\USB\CodeCopiedChecker\2-3.pas D:\ANNA\USB\CodeCopiedChecker\2-8.pas 124
 D:\ANNA\USB\CodeCopiedChecker\2-3.pas D:\ANNA\USB\CodeCopiedChecker\2-bad.pas second level
 D:\ANNA\USB\CodeCopiedChecker\2-3.pas D:\ANNA\USB\CodeCopiedChecker\2.pas 100 %
 D:\ANNA\USB\CodeCopiedChecker\2-4.pas D:\ANNA\USB\CodeCopiedChecker\2-5.pas second level
 D:\ANNA\USB\CodeCopiedChecker\2-4.pas D:\ANNA\USB\CodeCopiedChecker\2-6.pas second level
+D:\ANNA\USB\CodeCopiedChecker\2-4.pas D:\ANNA\USB\CodeCopiedChecker\2-8.pas 124
 D:\ANNA\USB\CodeCopiedChecker\2-4.pas D:\ANNA\USB\CodeCopiedChecker\2-bad.pas second level
 D:\ANNA\USB\CodeCopiedChecker\2-4.pas D:\ANNA\USB\CodeCopiedChecker\2.pas second level
 D:\ANNA\USB\CodeCopiedChecker\2-5.pas D:\ANNA\USB\CodeCopiedChecker\2-6.pas 100 %
+D:\ANNA\USB\CodeCopiedChecker\2-5.pas D:\ANNA\USB\CodeCopiedChecker\2-8.pas 124
 D:\ANNA\USB\CodeCopiedChecker\2-5.pas D:\ANNA\USB\CodeCopiedChecker\2-bad.pas second level
 D:\ANNA\USB\CodeCopiedChecker\2-5.pas D:\ANNA\USB\CodeCopiedChecker\2.pas second level
+D:\ANNA\USB\CodeCopiedChecker\2-6.pas D:\ANNA\USB\CodeCopiedChecker\2-8.pas 124
 D:\ANNA\USB\CodeCopiedChecker\2-6.pas D:\ANNA\USB\CodeCopiedChecker\2-bad.pas second level
 D:\ANNA\USB\CodeCopiedChecker\2-6.pas D:\ANNA\USB\CodeCopiedChecker\2.pas second level
+D:\ANNA\USB\CodeCopiedChecker\2-8.pas D:\ANNA\USB\CodeCopiedChecker\2-bad.pas 168
+D:\ANNA\USB\CodeCopiedChecker\2-8.pas D:\ANNA\USB\CodeCopiedChecker\2.pas 112
 D:\ANNA\USB\CodeCopiedChecker\2-bad.pas D:\ANNA\USB\CodeCopiedChecker\2.pas second level

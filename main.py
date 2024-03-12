@@ -5,6 +5,7 @@ import tokenize_code_numbers
 special_words = tokenize_code_numbers.code_numbers
 RESUL_FILE_PATH = os.path.dirname(os.path.realpath(__file__)) + '/result.txt'
 
+
 def check_special_word(s):
     for i in special_words.keys():
         if s.startswith(i):
@@ -80,20 +81,14 @@ def check_new_string(s):
 
 def get_tokens(code):
     tokens = []
+    funcs = [check_comment, check_spaces, check_new_string, check_string_value, check_special_word, check_number,
+             get_value]
     while code != '':
-        cur = check_comment(code)
-        if cur == False:
-            cur = check_spaces(code)
-            if cur == False:
-                cur = check_new_string(code)
-                if cur == False:
-                    cur = check_string_value(code)
-                    if cur == False:
-                        cur = check_special_word(code)
-                        if cur == False:
-                            cur = check_number(code)
-                            if cur == False:
-                                cur = get_value(code)
+        cur = False
+        i = 0
+        while cur == False:
+            cur = funcs[i](code)
+            i += 1
         tokens.append(cur)
         code = code[len(tokens[-1][2]):]
     return tokens
@@ -103,6 +98,8 @@ def check_2_codes(full=True):
     i = 0
     j = 0
     flag = False
+    num_of_important_tokens1 = 0
+    num_of_important_tokens2 = 0
     while i < len(t1) and j < len(t2):
         while i < len(t1) and (t1[i][0] == tokenize_code_numbers.COMMENT_NUM or t1[i][
             0] == tokenize_code_numbers.SPACE_NUM or t1[i][
@@ -120,6 +117,8 @@ def check_2_codes(full=True):
                 break
         i += 1
         j += 1
+    if i >= len(t1) and j < len(t2) or i < len(t1) and j >= len(t2):
+        return False
     return not flag
 
 
@@ -134,9 +133,9 @@ if not os.path.exists(RESUL_FILE_PATH):
 res = ''
 for f1 in range(0, len(files) - 1):
     for f2 in range(f1 + 1, len(files)):
-        with open(files[f1], 'r',  encoding='utf-8-sig') as file:
+        with open(files[f1], 'r', encoding='utf-8-sig') as file:
             code1 = file.read()
-        with open(files[f2], 'r',  encoding='utf-8-sig') as file:
+        with open(files[f2], 'r', encoding='utf-8-sig') as file:
             code2 = file.read()
         t1 = get_tokens(code1)
         t2 = get_tokens(code2)
