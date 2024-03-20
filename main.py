@@ -94,30 +94,29 @@ def get_tokens(code):
     return tokens
 
 
-def check_2_codes(full=True):
+def check_2_codes():
     i = 0
     j = 0
-    flag = False
+    flag = True
     while i < len(t1) and j < len(t2):
-        while i < len(t1) and (t1[i][0] == tokenize_code_numbers.COMMENT_NUM or t1[i][
-            0] == tokenize_code_numbers.SPACE_NUM or t1[i][
-                                   0] == tokenize_code_numbers.STRING_VALUE_NUM or t1[i][
-                                   0] == tokenize_code_numbers.NEXT_LINE_NUM):
+        while i < len(t1) and (t1[i][0] in(tokenize_code_numbers.COMMENT_NUM, tokenize_code_numbers.SPACE_NUM,
+                                           tokenize_code_numbers.STRING_VALUE_NUM, tokenize_code_numbers.NEXT_LINE_NUM)):
             i += 1
-        while j < len(t2) and (t2[j][0] == tokenize_code_numbers.COMMENT_NUM or t2[j][
-            0] == tokenize_code_numbers.SPACE_NUM or t2[j][
-                                   0] == tokenize_code_numbers.STRING_VALUE_NUM or t2[j][
-                                   0] == tokenize_code_numbers.NEXT_LINE_NUM):
+        while j < len(t2) and (t2[j][0] in(tokenize_code_numbers.COMMENT_NUM, tokenize_code_numbers.SPACE_NUM,
+                                           tokenize_code_numbers.STRING_VALUE_NUM, tokenize_code_numbers.NEXT_LINE_NUM)):
             j += 1
         if i < len(t1) and j < len(t2) and (t1[i][0] != t2[j][0] or t1[i][2] != t2[j][2]):
-            if not full and t1[i][0] != t2[j][0] or full:
-                flag = True
-                break
+            if t1[i][0] != t2[j][0]:
+                return 0
+            if t1[i][2] != t2[j][2]:
+                flag = False
         i += 1
         j += 1
     if i >= len(t1) and j < len(t2) or i < len(t1) and j >= len(t2):
-        return False
-    return not flag
+        return 0
+    if flag:
+        return 2
+    return 1
 
 
 directory = os.path.dirname(os.path.realpath(__file__))
@@ -139,9 +138,9 @@ for f1 in range(0, len(tokenized_files) - 1):
         t1 = tokenized_files[f1]
         t2 = tokenized_files[f2]
         res += files[f1] + ' ' + files[f2] + ' '
-        if check_2_codes():
+        if check_2_codes() == 2:
             res += '100 %'
-        elif check_2_codes(False):
+        elif check_2_codes() == 1:
             res += 'second level'
         else:
             dist1 = ''
