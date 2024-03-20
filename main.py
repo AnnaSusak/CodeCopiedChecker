@@ -98,8 +98,6 @@ def check_2_codes(full=True):
     i = 0
     j = 0
     flag = False
-    num_of_important_tokens1 = 0
-    num_of_important_tokens2 = 0
     while i < len(t1) and j < len(t2):
         while i < len(t1) and (t1[i][0] == tokenize_code_numbers.COMMENT_NUM or t1[i][
             0] == tokenize_code_numbers.SPACE_NUM or t1[i][
@@ -131,14 +129,15 @@ for filename in os.listdir(directory):
 if not os.path.exists(RESUL_FILE_PATH):
     with open(RESUL_FILE_PATH, 'w'): pass
 res = ''
-for f1 in range(0, len(files) - 1):
-    for f2 in range(f1 + 1, len(files)):
-        with open(files[f1], 'r', encoding='utf-8-sig') as file:
-            code1 = file.read()
-        with open(files[f2], 'r', encoding='utf-8-sig') as file:
-            code2 = file.read()
-        t1 = get_tokens(code1)
-        t2 = get_tokens(code2)
+tokenized_files = []
+for f1 in range(0, len(files)):
+    with open(files[f1], 'r', encoding='utf-8-sig') as file:
+        code1 = file.read()
+        tokenized_files.append(get_tokens(code1))
+for f1 in range(0, len(tokenized_files) - 1):
+    for f2 in range(f1 + 1, len(tokenized_files)):
+        t1 = tokenized_files[f1]
+        t2 = tokenized_files[f2]
         res += files[f1] + ' ' + files[f2] + ' '
         if check_2_codes():
             res += '100 %'
