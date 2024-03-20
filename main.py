@@ -7,15 +7,15 @@ RESUL_FILE_PATH = os.path.dirname(os.path.realpath(__file__)) + '/result.txt'
 
 
 def check_special_word(s):
-    for i in special_words.keys():
-        if s.startswith(i):
+    for i in special_words:
+        if s.startswith(i.name):
             counter = 1
-            if len(i) == 1:
+            if len(i.name) == 1:
                 s = s[1:]
-                while s.startswith(i):
+                while s.startswith(i.name):
                     counter += 1
                     s = s[1:]
-            return [special_words[i], counter, i * counter]
+            return [i.value, counter, i.name * counter]
     return False
 
 
@@ -62,7 +62,7 @@ def check_number(s):
 def get_value(s):
     val = ''
     i = 0
-    while i < len(s) and s[i] != ' ' and s[i] not in special_words.keys():
+    while i < len(s) and s[i] != ' ' and s[i] not in special_words.__members__:
         val += s[i]
         i += 1
     return [tokenize_code_numbers.VARIABLE_NUM, 1, s[:i]]
