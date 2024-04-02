@@ -1,6 +1,7 @@
 from Levenshtein import distance as lev
 import os
 import tokenize_code_numbers
+import linter
 
 special_words = tokenize_code_numbers.code_numbers
 RESUL_FILE_PATH = os.path.dirname(os.path.realpath(__file__)) + '/result.txt'
@@ -99,11 +100,13 @@ def check_2_codes():
     j = 0
     flag = True
     while i < len(t1) and j < len(t2):
-        while i < len(t1) and (t1[i][0] in(tokenize_code_numbers.COMMENT_NUM, tokenize_code_numbers.SPACE_NUM,
-                                           tokenize_code_numbers.STRING_VALUE_NUM, tokenize_code_numbers.NEXT_LINE_NUM)):
+        while i < len(t1) and (t1[i][0] in [tokenize_code_numbers.COMMENT_NUM, tokenize_code_numbers.SPACE_NUM,
+                                            tokenize_code_numbers.STRING_VALUE_NUM,
+                                            tokenize_code_numbers.NEXT_LINE_NUM]):
             i += 1
-        while j < len(t2) and (t2[j][0] in(tokenize_code_numbers.COMMENT_NUM, tokenize_code_numbers.SPACE_NUM,
-                                           tokenize_code_numbers.STRING_VALUE_NUM, tokenize_code_numbers.NEXT_LINE_NUM)):
+        while j < len(t2) and (t2[j][0] in [tokenize_code_numbers.COMMENT_NUM, tokenize_code_numbers.SPACE_NUM,
+                                            tokenize_code_numbers.STRING_VALUE_NUM,
+                                            tokenize_code_numbers.NEXT_LINE_NUM]):
             j += 1
         if i < len(t1) and j < len(t2) and (t1[i][0] != t2[j][0] or t1[i][2] != t2[j][2]):
             if t1[i][0] != t2[j][0]:
@@ -133,6 +136,8 @@ for f1 in range(0, len(files)):
     with open(files[f1], 'r', encoding='utf-8-sig') as file:
         code1 = file.read()
         tokenized_files.append(get_tokens(code1))
+        new_t = linter.get_tokens_for_linter(tokenized_files[-1])
+        print(linter.get_error_lines(new_t))
 for f1 in range(0, len(tokenized_files) - 1):
     for f2 in range(f1 + 1, len(tokenized_files)):
         t1 = tokenized_files[f1]
