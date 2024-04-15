@@ -1,126 +1,11 @@
-from Levenshtein import distance as lev
+import plagiate_checker
 import os
-import tokenize_code_numbers
 import linter
+from Levenshtein import distance as lev
+from functools import cmp_to_key
 
-special_words = tokenize_code_numbers.code_numbers
-RESUL_FILE_PATH = os.path.dirname(os.path.realpath(__file__)) + '/result.txt'
-
-
-def check_special_word(s):
-    for i in special_words:
-        if s.startswith(i.name):
-            counter = 1
-            if len(i.name) == 1:
-                s = s[1:]
-                while s.startswith(i.name):
-                    counter += 1
-                    s = s[1:]
-            return [i.value, counter, i.name * counter]
-    return False
-
-
-def check_spaces(s):
-    if s[0] != ' ':
-        return False
-    counter = 0
-    i = 0
-    while s[i] == ' ':
-        counter += 1
-        i += 1
-    return [tokenize_code_numbers.SPACE_NUM, counter, ' ' * counter]
-
-
-def check_comment(s):
-    if s[0] != '{':
-        return False
-    i = 0
-    while s[i] != '}':
-        i += 1
-    return [tokenize_code_numbers.COMMENT_NUM, 1, s[:i + 1]]
-
-
-def check_string_value(s):
-    if s[0] != '\'':
-        return False
-    i = 1
-    while s[i] != '\'':
-        i += 1
-    return [tokenize_code_numbers.STRING_VALUE_NUM, 1, s[:i + 1]]
-
-
-def check_number(s):
-    if s[0] not in '1234567890':
-        return False
-    cur_var = ''
-    l = 0
-    while l < len(s) and s[l] in '1234567890':
-        cur_var += s[l]
-        l += 1
-    return [tokenize_code_numbers.NUMBER_NUM, len(cur_var), cur_var]
-
-
-def get_value(s):
-    val = ''
-    i = 0
-    while i < len(s) and s[i] != ' ' and s[i] not in special_words.__members__:
-        val += s[i]
-        i += 1
-    return [tokenize_code_numbers.VARIABLE_NUM, 1, s[:i]]
-
-
-def check_new_string(s):
-    if s[0] != '\n':
-        return False
-    i = 0
-    counter = 0
-    while i < len(s) and s[i] == '\n':
-        counter += 1
-        i += 1
-    return [tokenize_code_numbers.NEXT_LINE_NUM, counter, '\n' * counter]
-
-
-def get_tokens(code):
-    tokens = []
-    funcs = [check_comment, check_spaces, check_new_string, check_string_value, check_special_word, check_number,
-             get_value]
-    while code != '':
-        cur = False
-        i = 0
-        while cur == False:
-            cur = funcs[i](code)
-            i += 1
-        tokens.append(cur)
-        code = code[len(tokens[-1][2]):]
-    return tokens
-
-
-def check_2_codes():
-    i = 0
-    j = 0
-    flag = True
-    while i < len(t1) and j < len(t2):
-        while i < len(t1) and (t1[i][0] in [tokenize_code_numbers.COMMENT_NUM, tokenize_code_numbers.SPACE_NUM,
-                                            tokenize_code_numbers.STRING_VALUE_NUM,
-                                            tokenize_code_numbers.NEXT_LINE_NUM]):
-            i += 1
-        while j < len(t2) and (t2[j][0] in [tokenize_code_numbers.COMMENT_NUM, tokenize_code_numbers.SPACE_NUM,
-                                            tokenize_code_numbers.STRING_VALUE_NUM,
-                                            tokenize_code_numbers.NEXT_LINE_NUM]):
-            j += 1
-        if i < len(t1) and j < len(t2) and (t1[i][0] != t2[j][0] or t1[i][2] != t2[j][2]):
-            if t1[i][0] != t2[j][0]:
-                return 0
-            if t1[i][2] != t2[j][2]:
-                flag = False
-        i += 1
-        j += 1
-    if i >= len(t1) and j < len(t2) or i < len(t1) and j >= len(t2):
-        return 0
-    if flag:
-        return 2
-    return 1
-
+RESULT_CODE_COPIED_FILE_PATH = os.path.dirname(os.path.realpath(__file__)) + '/result_code_copied.txt'
+RESULT_LINTER_FILE_PATH = os.path.dirname(os.path.realpath(__file__)) + '/result_linter.txt'
 
 directory = os.path.dirname(os.path.realpath(__file__))
 files = []
@@ -128,25 +13,31 @@ for filename in os.listdir(directory):
     f = os.path.join(directory, filename)
     if os.path.isfile(f) and f.endswith('pas'):
         files.append(f)
-if not os.path.exists(RESUL_FILE_PATH):
-    with open(RESUL_FILE_PATH, 'w'): pass
+if not os.path.exists(RESULT_CODE_COPIED_FILE_PATH):
+    with open(RESULT_CODE_COPIED_FILE_PATH, 'w'): pass
 res = ''
+code_copied_res = []
 tokenized_files = []
+linter_res = ''
 for f1 in range(0, len(files)):
     with open(files[f1], 'r', encoding='utf-8-sig') as file:
         code1 = file.read()
-        tokenized_files.append(get_tokens(code1))
+        tokenized_files.append(plagiate_checker.get_tokens(code1))
         new_t = linter.get_tokens_for_linter(tokenized_files[-1])
-        print(linter.get_error_lines(new_t))
+        linter_res += "-" * 40 + "\n" + files[f1][files[f1].rfind('\\') + 1:] + '\n'
+        errors = linter.get_error_lines(new_t)
+        for i in errors:
+            linter_res += str(i[0]) + ' ' +str(i[1]) + '\n'
+        linter_res += "-" * 40
 for f1 in range(0, len(tokenized_files) - 1):
     for f2 in range(f1 + 1, len(tokenized_files)):
         t1 = tokenized_files[f1]
         t2 = tokenized_files[f2]
-        res += files[f1] + ' ' + files[f2] + ' '
-        if check_2_codes() == 2:
-            res += '100 %'
-        elif check_2_codes() == 1:
-            res += 'second level'
+        cur_res = [files[f1][files[f1].rfind('\\') + 1:], files[f2][files[f2].rfind('\\') + 1:]]
+        if plagiate_checker.check_2_codes(t1, t2) == 2:
+            cur_res.append('100 %')
+        elif plagiate_checker.check_2_codes(t1, t2) == 1:
+            cur_res.append('second level')
         else:
             dist1 = ''
             dist2 = ''
@@ -154,7 +45,17 @@ for f1 in range(0, len(tokenized_files) - 1):
                 dist1 += str(i[0]) + ' '
             for j in t2:
                 dist2 += str(j[0]) + ' '
-            res += str(lev(dist1, dist2))
-        res += '\n'
-with open(RESUL_FILE_PATH, 'w', encoding="utf-8") as file:
-    file.write(res)
+            cur_res.append(lev(dist1, dist2))
+        code_copied_res.append(cur_res)
+code_copied_res=sorted(code_copied_res, key=cmp_to_key(plagiate_checker.my_comp))
+res_for_file = ''
+for i in range(len(code_copied_res)):
+    if i > 0 and code_copied_res[i - 1][2] != code_copied_res[i][2] and \
+         code_copied_res[i - 1][2] in ['100 %', 'second level']:
+        res_for_file += '-' * 40 + '\n'
+    res_for_file += str(code_copied_res[i][0]) + ' ' + str(code_copied_res[i][1]) + ' ' + str(code_copied_res[i][2])\
+                    + '\n'
+with open(RESULT_CODE_COPIED_FILE_PATH, 'w', encoding="utf-8") as file:
+    file.write(res_for_file)
+with open(RESULT_LINTER_FILE_PATH, 'w', encoding="utf-8") as file:
+    file.write(linter_res)

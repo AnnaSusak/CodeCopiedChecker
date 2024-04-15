@@ -8,7 +8,7 @@ SPACE_NUM = 147
 NEXT_LINE_NUM = 149
 code_numbers = Enum('code_numbers', '''+ - * / := : = < > . ( ) [ ] { } ; \' \" $ @ #
                             & ^ _ ~ % and end nil set array file not then 
-                            begin for of to case function 
+                            begin for of to case function For While
                             or type const goto packed until div if
                             procedure var do integer in program while downto label record
                             with else mod repeat writeln Writeln maxlongint maxint read real
