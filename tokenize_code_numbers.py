@@ -17,4 +17,4 @@ code_numbers = Enum('code_numbers', '''+ - * / := : = < > . ( ) [ ] { } ; \' \" 
                             File >= <= xor true false sin cos arctan abs
                             ln exp sqr sqrt pi round trunc frac random odd
                             ord chr pred succ readln write Assign Reset ReWrite Append
-                            Close ReadLn Read WriteLn Write ,''', start=1)
+                            Close ReadLn Read WriteLn Write If ,''', start=1)

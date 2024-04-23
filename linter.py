@@ -51,7 +51,7 @@ def check_blank_line_before_cycle_if(tokens):
     check_params = [tokenize_code_numbers.code_numbers['for'].value, tokenize_code_numbers.code_numbers['For'].value,
                     tokenize_code_numbers.code_numbers['while'].value,
                     tokenize_code_numbers.code_numbers['While'].value,
-                    tokenize_code_numbers.code_numbers['if'].value]
+                    tokenize_code_numbers.code_numbers['if'].value, tokenize_code_numbers.code_numbers['If'].value]
     cur_num_str = 1
     for i in range(len(tokens)):
         ok = True
