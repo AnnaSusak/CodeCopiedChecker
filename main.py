@@ -88,12 +88,13 @@ def separate_different_plagiate_verdicts_if_needed(i):
     if i > 0 and code_copied_res[i - 1][2] != code_copied_res[i][2] and \
             code_copied_res[i - 1][2] in ['100 %', 'second level']:
         return SEPARATOR
+    return ''
 
 
 def format_plagiate_check_results(code_copied_res):
     res_for_file = ''
     for i in range(len(code_copied_res)):
-        res_for_file += separate_different_plagiate_verdicts_if_needed()
+        res_for_file += separate_different_plagiate_verdicts_if_needed(i)
         res_for_file += str(code_copied_res[i][0]) + ' ' + str(code_copied_res[i][1]) + ' ' + str(code_copied_res[i][2]) \
                         + '\n'
     return res_for_file
